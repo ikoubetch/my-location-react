@@ -7,3 +7,8 @@ export function setUser(user) {
 export function removeUser() {
   return { type: 'REMOVE_USER' }
 }
+
+export function setLoading(loading) {
+  return { type: 'SET_LOADING', payload: loading }
+
+}

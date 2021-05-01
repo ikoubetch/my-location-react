@@ -6,8 +6,9 @@ import AuthPage from "../../components/templates/AuthPage";
 import LoginForm from '../../components/molecules/LoginForm'
 
 import { register } from "../../service/auth";
+import { sendLoginSuccessful } from "../../service/analytics";
 import { Context } from '../../store'
-import { setUser } from "../../store/actions";
+import { setUser, setLoading } from "../../store/actions";
 
 function Register() {
 
@@ -19,14 +20,24 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true))
 
-    const data = await register(email, password)
+    try {
+      const data = await register(email, password)
 
-    const { user } = data;
+      const { user } = data;
 
-    if (user) {
-      dispatch(setUser(user))
-      toast.success('Registrado com sucesso.')
+      if (user) {
+        await sendLoginSuccessful(user)
+
+        dispatch(setUser(user))
+        toast.success('Registrado com sucesso.')
+      }
+    } catch (err) {
+      toast.error(err.message)
+    } finally {
+      dispatch(setLoading(false))
+
     }
   }
 

@@ -6,11 +6,15 @@ export class GoogleMaps extends Component {
   render() {
     return (
       <Map google={this.props.google}
+        fullscreenControl={false}
+        mapTypeControl={false}
+        streetViewControl={false}
+        style={{ width: '100%', height: '100%', position: 'relative' }}
         initialCenter={{
           lat: -15,
           lng: -52
         }}
-        zoom={4}>
+        zoom={5}>
 
         <Marker
           name={'Me'}

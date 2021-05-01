@@ -3,7 +3,8 @@ import Reducer from './reducer'
 
 
 const initialState = {
-  user: null
+  user: null,
+  isLoading: false
 };
 
 const Store = ({ children }) => {
