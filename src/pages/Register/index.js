@@ -1,0 +1,48 @@
+import React, { useState, useContext } from 'react';
+import { toast } from 'react-toastify';
+import { Redirect } from 'react-router-dom'
+
+import AuthPage from "../../components/templates/AuthPage";
+import LoginForm from '../../components/molecules/LoginForm'
+
+import { register } from "../../service/auth";
+import { Context } from '../../store'
+import { setUser } from "../../store/actions";
+
+function Register() {
+
+  const [state, dispatch] = useContext(Context);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = await register(email, password)
+
+    const { user } = data;
+
+    if (user) {
+      dispatch(setUser(user))
+      toast.success('Registrado com sucesso.')
+    }
+  }
+
+  const home = <Redirect to="/" />
+
+  return !state.user ?
+    <AuthPage>
+      <LoginForm
+        submitFunciton={handleSubmit}
+        login={email}
+        setLogin={setEmail}
+        password={password}
+        setPassword={setPassword}
+        labelButton="REGISTRAR"
+      />
+    </AuthPage> : home;
+}
+
+export default Register;
