@@ -9,8 +9,8 @@ const LoginForm = ({ login, setLogin, password, setPassword, submitFunciton, lab
   return (
     <S.Wrapper>
       <Form onSubmit={submitFunciton}>
-        <TextField type="email" required placeholder="Login" value={login} onChange={e => setLogin(e.target.value)} />
-        <TextField type="password" required placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
+        <TextField type="email" aria-label="email" required placeholder="Login" value={login} onChange={e => setLogin(e.target.value)} />
+        <TextField type="password" aria-label="password" required placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
         <Button type="submit">{labelButton}</Button>
         {children}
       </Form>

@@ -1,9 +1,9 @@
 import React from 'react'
 import * as S from './styles'
 
-const Loader = () => {
+const Loader = ({ ...props }) => {
   return (
-    <S.Wrapper />
+    <S.Wrapper {...props} />
   )
 }
 

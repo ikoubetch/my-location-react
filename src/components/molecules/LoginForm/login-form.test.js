@@ -8,7 +8,15 @@ describe('<LoginForm />', () => {
     render(<LoginForm />)
 
     expect(
-      screen.getByRole('heading', { name: /LoginForm/i })
+      screen.getByRole('textbox', { name: /email/i })
+    ).toBeInTheDocument()
+
+    expect(
+      screen.getByPlaceholderText("Senha")
+    ).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('button', { name: /ACESSAR/i })
     ).toBeInTheDocument()
   })
 })
