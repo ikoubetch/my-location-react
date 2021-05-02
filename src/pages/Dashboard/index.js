@@ -9,6 +9,8 @@ import { sendLocation } from '../../service/analytics'
 import { logOut } from "../../service/auth";
 import { removeUser } from "../../store/actions";
 
+import db from '../../database'
+
 
 function Dashboard() {
   const [state, dispatch] = useContext(Context);
@@ -25,6 +27,12 @@ function Dashboard() {
         setLongitude(longitude)
 
         sendLocation(latitude, longitude, state.user)
+
+        db.table('lastLocation').add({
+          uid: state.user.uid,
+          lat: latitude,
+          long: longitude
+        })
       }, (err) => toast.error(err.message));
     }
   }, [])
